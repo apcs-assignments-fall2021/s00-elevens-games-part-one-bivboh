@@ -16,7 +16,16 @@ public class Deck {
 	// You will need to initialize both the cardsList and size instance variables
 	// You should go through and make all possible pairs of suits and ranks
 	public Deck(String[] ranks, String[] suits, int[] values) {
-		// YOUR CODE HERE
+		cardsList = new ArrayList<Card>();
+		size = ranks.length * suits.length;
+
+		for (int i = 0; i < suits.length; i++){
+			for (int j = 0; j < ranks.length; j++){
+				Card c = new Card(ranks[j], suits[i],  values[j]);
+				cardsList.add(c);
+			}
+		}
+
 		// // Remember, in a constructor you need to first create the ArrayList for the instance variable!
 	}
 	// Deals a card from this deck.
@@ -24,28 +33,37 @@ public class Deck {
 	// Recall that the cards are dealt from top (highest-index) down
 	// Updates the size as well
 	public Card deal() {
-		// YOUR CODE HERE
-        return null;
+		if (size > 0){
+			Card b = cardsList.get(size-1);
+			size --;
+			return b;
+		}
+		else {
+			return null;
+		}
+
 	}
 
 	// Determines if this deck is empty (there are no undealt cards).
 	// returns true if this deck is empty, false otherwise.
 	public boolean isEmpty() {
-		// YOUR CODE HERE
-		return false;
+		return size == 0;
 	}
 
 	// Returns the size (number of undealt cards) in this deck.
 	public int getSize() {
-		// YOUR CODE HERE
-		return -1;
+		return this.size;
 	}
 
 	// Shuffles the deck by repeatedly randomly swapping pairs of cards
 	// This method should change the order of the cards in cardsList
 	// Shuffling should also reset the size variable to its original value
 	public void shuffle() {
-		// YOUR CODE HERE
+		int size = cardsList.size();
+		for (int i = 0; i < size; i ++){
+			int x = (int) (Math.random() * size);
+			cardsList.set(x, cardsList.get(i));
+		}
 	}
 
 	// OPTIONAL: Write code that carries out a "perfect" shuffle
